@@ -10,6 +10,8 @@ import { WebSocketService } from '../../services/web-socket.service';
 })
 export class Sample {
 
+  message: string = '';
+
   private wsSubscription?: Subscription;
 
   constructor(private readonly wsService: WebSocketService) {}
@@ -18,7 +20,7 @@ export class Sample {
     this.wsSubscription = this.wsService.connect('ws://localhost:8080/ws/stock-ticker').subscribe({
       next: (message) => {
         console.log('Received:', message);
-        // handle your message here
+        this.message = message; // Update the message to display in the template
       },
       error: (err) => {
         console.error('WebSocket error:', err);
